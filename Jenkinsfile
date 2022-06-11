@@ -29,14 +29,9 @@ pipeline {
         }
         stage('Email Notification') {
             steps {
-                options {
-                    timeout(time: 1, unit: 'MINUTES') 
-                }
-
-                emailext to: "johansebastiangh@gmail.com",
-                subject: "Test Email From Jenkins",
-                body: "Test Email From Jenkins",
-                attachLog: true
+                emailext body: 'Test Message',
+                    subject: 'Test Subject',
+                    to: 'test@example.com'
             }
         }
     }
