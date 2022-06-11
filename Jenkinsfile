@@ -32,20 +32,13 @@ pipeline {
                 archiveArtifacts artifacts: 'results/*.html'
             }
         }
-        stage('Email Notification') {
-            steps {
-                timeout(time: 2, unit: 'MINUTES') {
-                    echo 'Email Notification!'
-                    emailext body: 'Test Message',
-                        subject: 'Test Subject',
-                        to: 'test@example.com'
-                }    
-            }
-        }
     }
     post {
         always{
             junit 'results/*_result.xml'
+            
+            echo '${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}'
+            
             cleanWs()
         }
     }
