@@ -33,11 +33,11 @@ pipeline {
             junit 'results/*_result.xml'
             cleanWs()
             
-            archiveArtifacts artifacts: '*.xml', onlyIfSuccessful: true
+            archiveArtifacts artifacts: 'results/*.xml', onlyIfSuccessful: true
             emailext to: "johansebastiangh@gmail.com",
             subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-            attachmentsPattern: '*.xml'    
+            attachmentsPattern: 'results/*.xml'    
             cleanWs()
         }
     }
