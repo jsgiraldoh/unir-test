@@ -31,7 +31,7 @@ pipeline {
     post {
         always{
             junit 'results/*_result.xml'
-            cleanWs()
+            //cleanWs()
             
             archiveArtifacts artifacts: 'results/*.xml', onlyIfSuccessful: true
             emailext to: "johansebastiangh@gmail.com",
