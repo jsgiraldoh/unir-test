@@ -5,34 +5,36 @@ pipeline {
     stages {
         stage('Source') {
             steps {
-                //git 'https://github.com/srayuso/unir-cicd.git'
                 git 'https://github.com/jsgiraldoh/unir-test.git'
-            }
-        }
-        stage('Build') {
-            steps {
-                echo 'Building stage!'
-                sh 'make build test-unit'
             }
         }
         stage('Unit tests') {
             steps {
+                echo 'Unit tests!'
+                sh 'make build test-unit'
+            }
+        }
+        stage('Api tests') {
+            steps {
+                echo 'Api tests!'
                 sh 'make build test-api'
                 archiveArtifacts artifacts: 'results/*.xml'
             }
         }
-        stage('e2e tests') {
+        stage('E2e tests') {
             steps {
+                echo 'E2e tests!'
                 sh 'make build test-e2e'
                 archiveArtifacts artifacts: 'results/*.xml'
             }
         }
         stage('Email Notification') {
             steps {
-                timeout(time: 3, unit: 'HOURS') {
+                timeout(time: 2, unit: 'MINUTES') {
+                    echo 'Email Notification!'
                     emailext body: 'Test Message',
                         subject: 'Test Subject',
-                        to: 'johansebastiangh@gmail.com'
+                        to: 'test@example.com'
                 }    
             }
         }
@@ -40,19 +42,6 @@ pipeline {
     post {
         always{
             junit 'results/*_result.xml'
-            //cleanWs()
-            
-            //archiveArtifacts artifacts: '*.csv', onlyIfSuccessful: true
-            //emailext to: "johansebastiangh@gmail.com",
-            //subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-            //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-            //attachmentsPattern: '*.csv'    
-
-            emailext to: "johansebastiangh@gmail.com",
-            subject: "Test Email From Jenkins",
-            body: "Test Email From Jenkins",
-            attachLog: true
-
             cleanWs()
         }
     }
