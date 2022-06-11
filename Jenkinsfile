@@ -12,6 +12,8 @@ pipeline {
             steps {
                 echo 'Unit tests!'
                 sh 'make build test-unit'
+                archiveArtifacts artifacts: 'results/*.xml'
+                archiveArtifacts artifacts: 'results/*.html'
             }
         }
         stage('Api tests') {
@@ -19,6 +21,7 @@ pipeline {
                 echo 'Api tests!'
                 sh 'make build test-api'
                 archiveArtifacts artifacts: 'results/*.xml'
+                archiveArtifacts artifacts: 'results/*.html'
             }
         }
         stage('E2e tests') {
@@ -26,6 +29,7 @@ pipeline {
                 echo 'E2e tests!'
                 sh 'make build test-e2e'
                 archiveArtifacts artifacts: 'results/*.xml'
+                archiveArtifacts artifacts: 'results/*.html'
             }
         }
         stage('Email Notification') {
@@ -42,7 +46,7 @@ pipeline {
     post {
         always{
             junit 'results/*_result.xml'
-            //cleanWs()
+            cleanWs()
         }
     }
 
