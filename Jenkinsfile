@@ -12,12 +12,12 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building stage!'
-                sh 'make build'
+                sh 'make build test-unit'
             }
         }
         stage('Unit tests') {
             steps {
-                sh 'make test-unit'
+                sh 'make build test-api'
                 archiveArtifacts artifacts: 'results/*.xml'
             }
         }
