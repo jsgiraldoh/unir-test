@@ -37,7 +37,10 @@ pipeline {
         always{
             junit 'results/*_result.xml'
             
-            echo 'Job ${JOB_NAME}\nMore Info can be found here: ${BUILD_URL}'
+            echo 'Job:'  
+            echo ${JOB_NAME}
+            echo 'More Info can be found here:'
+            echo ${env.BUILD_URL}
             
             cleanWs()
         }
