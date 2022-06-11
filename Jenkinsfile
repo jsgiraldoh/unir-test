@@ -42,7 +42,7 @@ pipeline {
     post {
         always{
             junit 'results/*_result.xml'
-            cleanWs()
+            //cleanWs()
         }
     }
 
