@@ -29,9 +29,11 @@ pipeline {
         }
         stage('Email Notification') {
             steps {
-                emailext body: 'Test Message',
-                    subject: 'Test Subject',
-                    to: 'test@example.com'
+                timeout(time: 3, unit: 'HOURS') {
+                    emailext body: 'Test Message',
+                        subject: 'Test Subject',
+                        to: 'johansebastiangh@gmail.com'
+                }    
             }
         }
     }
