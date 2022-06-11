@@ -29,22 +29,17 @@ pipeline {
         }
     }
     post {
-        always {
+        always{
             junit 'results/*_result.xml'
             cleanWs()
-        }
-    }
-    post {
-        always{
-                archiveArtifacts artifacts: '*.xml', onlyIfSuccessful: true
-                
-                emailext to: "johansebastiangh@gmail.com",
-                subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-                attachmentsPattern: '*.xml'
-                
+            
+            archiveArtifacts artifacts: '*.xml', onlyIfSuccessful: true
+            emailext to: "johansebastiangh@gmail.com",
+            subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+            attachmentsPattern: '*.xml'    
             cleanWs()
-            }
+        }
     }
 
 }
