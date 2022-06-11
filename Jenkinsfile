@@ -27,11 +27,18 @@ pipeline {
                 archiveArtifacts artifacts: 'results/*.xml'
             }
         }
-        stage('Hello') {
+        stage('Email Notification') {
             steps {
-                sh "echo 'Hello world,1' >> test.csv"
-                    }
+                options {
+                    timeout(time: 1, unit: 'MINUTES') 
+                }
+
+                emailext to: "johansebastiangh@gmail.com",
+                subject: "Test Email From Jenkins",
+                body: "Test Email From Jenkins",
+                attachLog: true
             }
+        }
     }
     post {
         always{
