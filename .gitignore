@@ -19,3 +19,8 @@ sonar/
 .scannerwork/
 
 jmeter.log
+
+.venv
+
+.vscode
+.DS_Store
