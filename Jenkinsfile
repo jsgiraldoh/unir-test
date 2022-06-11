@@ -38,11 +38,17 @@ pipeline {
             junit 'results/*_result.xml'
             //cleanWs()
             
-            archiveArtifacts artifacts: '*.csv', onlyIfSuccessful: true
+            //archiveArtifacts artifacts: '*.csv', onlyIfSuccessful: true
+            //emailext to: "johansebastiangh@gmail.com",
+            //subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+            //body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
+            //attachmentsPattern: '*.csv'    
+
             emailext to: "johansebastiangh@gmail.com",
-            subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-            body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-            attachmentsPattern: '*.csv'    
+            subject: "Test Email From Jenkins",
+            body: "Test Email From Jenkins",
+            attachLog: true
+
             cleanWs()
         }
     }
