@@ -37,7 +37,11 @@ pipeline {
         always{
             junit 'results/*_result.xml'
             
-            echo "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+            emailext body: 'Test Message',
+                    subject: 'Test Subject',
+                    to: 'test@example.com'
+            echo "Email Notification!"
+            echo "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nBuild Number: ${env.BUILD_NUMBER}\nMore Info can be found here: ${env.BUILD_URL}"
             
             cleanWs()
         }
