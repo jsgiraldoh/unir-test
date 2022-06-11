@@ -27,17 +27,22 @@ pipeline {
                 archiveArtifacts artifacts: 'results/*.xml'
             }
         }
+        stage('Hello') {
+            steps {
+                sh "echo 'Hello world,1' >> test.csv"
+                    }
+            }
     }
     post {
         always{
             junit 'results/*_result.xml'
             //cleanWs()
             
-            archiveArtifacts artifacts: 'results/*.xml', onlyIfSuccessful: true
+            archiveArtifacts artifacts: '*.csv', onlyIfSuccessful: true
             emailext to: "johansebastiangh@gmail.com",
             subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
             body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}",
-            attachmentsPattern: 'results/*.xml'    
+            attachmentsPattern: '*.csv'    
             cleanWs()
         }
     }
