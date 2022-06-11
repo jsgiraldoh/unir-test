@@ -33,6 +33,8 @@ pipeline {
             junit 'results/*_result.xml'
             cleanWs()
         }
+    }
+    post {
         always{
                 archiveArtifacts artifacts: '*.xml', onlyIfSuccessful: true
                 
@@ -44,4 +46,5 @@ pipeline {
             cleanWs()
             }
     }
+
 }
